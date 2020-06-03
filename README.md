@@ -1,15 +1,17 @@
 # Pyrodantic
 
-Pydantic models for Google Firestore.
+[Pydantic](https://pydantic-docs.helpmanual.io/) models for [Google Firestore](https://cloud.google.com/firestore).
+
+Inspired by [fireclass](https://github.com/nabla-c0d3/fireclass).
 
 ## Installation
 pip install pyrodantic
 
 ## Usage
 
-```
+```python
 from google.cloud.firestore import Client
-from pyrodantic.document import Document
+from pyrodantic.document import Document, FirestoreID
 
 
 firestore_client = Client()
@@ -38,3 +40,7 @@ doc.delete()
 doc = TestDocument.get('4f7be295accc473aa87844ec6f98443c', firestore_client=firestore_client)
 # doc == None
 ```
+
+## TODO
+
+* Queries (`.where(...)`)
