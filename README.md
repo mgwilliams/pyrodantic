@@ -9,7 +9,7 @@ pip install pyrodantic
 
 ## Usage
 
-```python
+```python3
 from google.cloud.firestore import Client
 from pyrodantic.document import Document, FirestoreID
 
