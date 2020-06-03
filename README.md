@@ -2,6 +2,10 @@
 
 Pydantic models for Google Firestore.
 
+## Installation
+pip install pyrodantic
+
+## Usage
 
 ```
 from google.cloud.firestore import Client
