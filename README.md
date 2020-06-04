@@ -11,7 +11,7 @@ pip install pyrodantic
 
 ```python3
 from google.cloud.firestore import Client
-from pyrodantic.document import Document, FirestoreID
+from pyrodantic import Document, FirestoreID
 
 
 firestore_client = Client()
@@ -27,15 +27,18 @@ class TestDocument(Document):
 
 
 doc = TestDocument(firestore_client, test_string='foo', test_int=1)
-# TestDocument(document_id=None, test_string='foo', test_int=1, test_default='default')
+# doc == TestDocument(document_id=None, test_string='foo', test_int=1, test_default='default')
 
 doc.create()
-# TestDocument(document_id='4f7be295accc473aa87844ec6f98443c', test_string='foo', test_int=1, test_default='default')
+# doc == TestDocument(document_id='4f7be295accc473aa87844ec6f98443c', test_string='foo', test_int=1, test_default='default')
 
 doc = TestDocument.get('4f7be295accc473aa87844ec6f98443c', firestore_client=firestore_client)
-# TestDocument(document_id='4f7be295accc473aa87844ec6f98443c', test_string='foo', test_int=1, test_default='default')
+# doc == TestDocument(document_id='4f7be295accc473aa87844ec6f98443c', test_string='foo', test_int=1, test_default='default')
 
-doc.delete()
+docs = list(TestDocument.where('test_string', '==', 'foo', firestore_client).stream())
+# docs[0] == TestDocument(document_id='4f7be295accc473aa87844ec6f98443c', test_string='foo', test_int=1, test_default='default')
+
+docs[0].delete()
 
 doc = TestDocument.get('4f7be295accc473aa87844ec6f98443c', firestore_client=firestore_client)
 # doc == None
@@ -43,4 +46,4 @@ doc = TestDocument.get('4f7be295accc473aa87844ec6f98443c', firestore_client=fire
 
 ## TODO
 
-* Queries (`.where(...)`)
+* Support transactions
