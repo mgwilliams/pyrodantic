@@ -74,7 +74,7 @@ class Document(BaseModel, metaclass=DocumentMeta):
     @classmethod
     def _from_firestore_snapshot(cls, snapshot: DocumentSnapshot, *,
                                  firestore_client: FirestoreClient) -> _DocumentSubclassTypeVar:
-        data = snapshot.to_dict()
+        data = snapshot.dict()
         data[cls.__firestore__.id_attr] = snapshot.id
         return cls(firestore_client, **data)
 
@@ -83,7 +83,7 @@ class Document(BaseModel, metaclass=DocumentMeta):
         path = [cls.__firestore__.collection, document_id]
 
         snapshot = DocumentReference(*path, client=firestore_client).get()
-        if not snapshot.exists:
+        if snapshot is None:
             return None
         else:
             return cls._from_firestore_snapshot(snapshot, firestore_client=firestore_client)
