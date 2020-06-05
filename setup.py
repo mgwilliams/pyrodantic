@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyrodantic",
-    version="0.0.2",
+    version="0.0.3",
     author="Matthew Williams",
     author_email="mgwilliams@gmail.com",
     description="Pydantic models for Firestore",

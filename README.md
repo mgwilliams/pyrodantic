@@ -47,3 +47,4 @@ doc = TestDocument.get('4f7be295accc473aa87844ec6f98443c', firestore_client=fire
 ## TODO
 
 * Support transactions
+* Support sub-collections
