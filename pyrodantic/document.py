@@ -74,7 +74,7 @@ class Document(BaseModel, metaclass=DocumentMeta):
     @classmethod
     def _from_firestore_snapshot(cls, snapshot: DocumentSnapshot, *,
                                  firestore_client: FirestoreClient) -> _DocumentSubclassTypeVar:
-        data = snapshot.dict()
+        data = snapshot.to_dict()
         data[cls.__firestore__.id_attr] = snapshot.id
         return cls(firestore_client, **data)
 
