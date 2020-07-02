@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyrodantic",
-    version="0.0.4",
+    version="0.0.5",
     author="Matthew Williams",
     author_email="mgwilliams@gmail.com",
     description="Pydantic models for Firestore",
@@ -20,6 +20,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
-    install_requires=['pydantic', 'google-cloud-firestore'],
+    python_requires=">=3.6",
+    install_requires=["pydantic", "google-cloud-firestore"],
 )
