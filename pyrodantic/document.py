@@ -4,6 +4,7 @@ from uuid import uuid4
 from pydantic import BaseModel
 from pydantic.main import ModelMetaclass
 from google.cloud.firestore import Client as FirestoreClient
+from google.cloud.exceptions import Conflict
 from google.cloud.firestore_v1 import (
     CollectionReference,
     DocumentReference,
