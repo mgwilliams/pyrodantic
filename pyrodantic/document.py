@@ -143,6 +143,7 @@ class Document(BaseModel, metaclass=DocumentMeta):
 
     def create(self) -> None:
         data = self.dict()
+        self.before_create()
         data.pop(self.__firestore__.id_attr)
         new_id = False
         while True:
@@ -155,12 +156,19 @@ class Document(BaseModel, metaclass=DocumentMeta):
                     continue
                 else:
                     raise
+    
+    def before_create(self) -> None:
+        pass
 
     def update(self) -> None:
         ref = self.doc_ref()
         data = self.dict()
+        self.before_update()
         data.pop(self.__firestore__.id_attr)
         ref.update(data)
+
+    def before_update(self) -> None:
+        pass
 
     def delete(self) -> None:
         if not self._document_id():
