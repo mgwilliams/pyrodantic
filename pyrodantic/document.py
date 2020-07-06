@@ -44,7 +44,7 @@ class FirestoreConfig:
 ComparisonOperator = Literal["<", "<=", "==", ">=", ">", "array_contains"]
 _DocumentSubclassTypeVar = TypeVar("_DocumentSubclassTypeVar", bound="Document")
 
-_is_document_class_defined = False
+_DOCUMENT_CLASS_DEFINED = False
 
 
 class DocumentMeta(ModelMetaclass):
@@ -52,7 +52,7 @@ class DocumentMeta(ModelMetaclass):
         firestore = FirestoreConfig
         for base in reversed(bases):
             if (
-                _is_document_class_defined
+                _DOCUMENT_CLASS_DEFINED
                 and issubclass(base, Document)
                 and base != Document
             ):
@@ -63,7 +63,7 @@ class DocumentMeta(ModelMetaclass):
         ids = {k: v for k, v in annotations.items() if issubclass(v, FirestoreID)}
 
         if (
-            _is_document_class_defined
+            _DOCUMENT_CLASS_DEFINED
             and len(ids) != 1
             and not hasattr(firestore, "id_attr")
         ):
@@ -74,8 +74,7 @@ class DocumentMeta(ModelMetaclass):
             id_attr = list(ids.keys())[0]
             setattr(firestore, "id_attr", id_attr)
         namespace["__firestore__"] = firestore
-        cls = ModelMetaclass.__new__(cls, name, bases, namespace, **kwargs)
-        return cls
+        return ModelMetaclass.__new__(cls, name, bases, namespace, **kwargs)
 
 
 class Document(BaseModel, metaclass=DocumentMeta):
@@ -156,7 +155,7 @@ class Document(BaseModel, metaclass=DocumentMeta):
                     continue
                 else:
                     raise
-    
+
     def before_create(self) -> None:
         pass
 
@@ -176,7 +175,7 @@ class Document(BaseModel, metaclass=DocumentMeta):
         self.doc_ref().delete()
 
 
-_is_document_class_defined = True
+_DOCUMENT_CLASS_DEFINED = True
 
 
 class Query:
