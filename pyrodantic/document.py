@@ -149,6 +149,7 @@ class Document(BaseModel, metaclass=DocumentMeta):
             try:
                 ref = self.doc_ref(create=True, new_id=new_id)
                 ref.create(data)
+                break
             except Conflict:
                 if self.__firestore__.retry_create_on_conflict:
                     new_id = True
